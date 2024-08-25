@@ -1,0 +1,143 @@
+use "C:\Users\clweng\Documents\STATA\reg_test.dta" 
+
+egen cusip_id = group(CUSIP)
+winsor2 SURPRISE lret5 lret4 lret3 lret2 lret1 ret fret1 fret2 fret3 fret4
+
+est clear
+reghdfe lret5_w SURPRISE_w 
+est store dayb5
+reghdfe lret4_w SURPRISE_w
+est store dayb4
+reghdfe lret3_w SURPRISE_w
+est store dayb3
+reghdfe lret2_w SURPRISE_w
+est store dayb2
+reghdfe lret1_w SURPRISE_w
+est store dayb1
+reghdfe ret_w SURPRISE_w
+est store daya1
+reghdfe fret1_w SURPRISE_w
+est store daya2
+reghdfe fret2_w SURPRISE_w
+est store daya3
+reghdfe fret3_w SURPRISE_w
+est store daya4
+reghdfe fret4_w SURPRISE_w
+est store daya5
+esttab dayb5 dayb4 dayb3 dayb2 dayb1 daya1 daya2 daya3 daya4 daya5 using test_newa.rtf, replace beta t nocon star(* 0.1 ** 0.05 *** 0.01) ar2 nogap compress title(new surp, no control) dep
+
+est clear
+reghdfe lret5_w SURPRISE_w, absorb(year_quarter)
+est store dayb5
+reghdfe lret4_w SURPRISE_w, absorb(year_quarter)
+est store dayb4
+reghdfe lret3_w SURPRISE_w, absorb(year_quarter)
+est store dayb3
+reghdfe lret2_w SURPRISE_w, absorb(year_quarter)
+est store dayb2
+reghdfe lret1_w SURPRISE_w, absorb(year_quarter)
+est store dayb1
+reghdfe ret_w SURPRISE_w, absorb(year_quarter)
+est store daya1
+reghdfe fret1_w SURPRISE_w, absorb(year_quarter)
+est store daya2
+reghdfe fret2_w SURPRISE_w, absorb(year_quarter)
+est store daya3
+reghdfe fret3_w SURPRISE_w, absorb(year_quarter)
+est store daya4
+reghdfe fret4_w SURPRISE_w, absorb(year_quarter)
+est store daya5
+esttab dayb5 dayb4 dayb3 dayb2 dayb1 daya1 daya2 daya3 daya4 daya5 using test_newb.rtf, replace beta t nocon star(* 0.1 ** 0.05 *** 0.01) ar2 nogap compress title(new surp, timeFE) dep
+
+
+est clear
+reghdfe lret5_w SURPRISE_w, absorb(cusip_id)
+est store dayb5
+reghdfe lret4_w SURPRISE_w, absorb(cusip_id)
+est store dayb4
+reghdfe lret3_w SURPRISE_w, absorb(cusip_id)
+est store dayb3
+reghdfe lret2_w SURPRISE_w, absorb(cusip_id)
+est store dayb2
+reghdfe lret1_w SURPRISE_w, absorb(cusip_id)
+est store dayb1
+reghdfe ret_w SURPRISE_w, absorb(cusip_id)
+est store daya1
+reghdfe fret1_w SURPRISE_w, absorb(cusip_id)
+est store daya2
+reghdfe fret2_w SURPRISE_w, absorb(cusip_id)
+est store daya3
+reghdfe fret3_w SURPRISE_w, absorb(cusip_id)
+est store daya4
+reghdfe fret4_w SURPRISE_w, absorb(cusip_id)
+est store daya5
+esttab dayb5 dayb4 dayb3 dayb2 dayb1 daya1 daya2 daya3 daya4 daya5 using test_newc.rtf, replace beta t nocon star(* 0.1 ** 0.05 *** 0.01) ar2 nogap compress title(new surp, firmFE) dep
+
+est clear
+reghdfe lret5_w SURPRISE_w, absorb(cusip_id) cluster(cusip_id)
+est store dayb5
+reghdfe lret4_w SURPRISE_w, absorb(cusip_id) cluster(cusip_id)
+est store dayb4
+reghdfe lret3_w SURPRISE_w, absorb(cusip_id) cluster(cusip_id)
+est store dayb3
+reghdfe lret2_w SURPRISE_w, absorb(cusip_id) cluster(cusip_id)
+est store dayb2
+reghdfe lret1_w SURPRISE_w, absorb(cusip_id) cluster(cusip_id)
+est store dayb1
+reghdfe ret_w SURPRISE_w, absorb(cusip_id) cluster(cusip_id)
+est store daya1
+reghdfe fret1_w SURPRISE_w, absorb(cusip_id) cluster(cusip_id)
+est store daya2
+reghdfe fret2_w SURPRISE_w, absorb(cusip_id) cluster(cusip_id)
+est store daya3
+reghdfe fret3_w SURPRISE_w, absorb(cusip_id) cluster(cusip_id)
+est store daya4
+reghdfe fret4_w SURPRISE_w, absorb(cusip_id) cluster(cusip_id)
+est store daya5
+esttab dayb5 dayb4 dayb3 dayb2 dayb1 daya1 daya2 daya3 daya4 daya5 using test_newd.rtf, replace beta t nocon star(* 0.1 ** 0.05 *** 0.01) ar2 nogap compress title(new surp, firmFE and cluster) dep
+
+est clear
+reghdfe lret5_w SURPRISE_w, absorb(cusip_id year_quarter)
+est store dayb5
+reghdfe lret4_w SURPRISE_w, absorb(cusip_id year_quarter)
+est store dayb4
+reghdfe lret3_w SURPRISE_w, absorb(cusip_id year_quarter)
+est store dayb3
+reghdfe lret2_w SURPRISE_w, absorb(cusip_id year_quarter)
+est store dayb2
+reghdfe lret1_w SURPRISE_w, absorb(cusip_id year_quarter)
+est store dayb1
+reghdfe ret_w SURPRISE_w, absorb(cusip_id year_quarter)
+est store daya1
+reghdfe fret1_w SURPRISE_w, absorb(cusip_id year_quarter)
+est store daya2
+reghdfe fret2_w SURPRISE_w, absorb(cusip_id year_quarter)
+est store daya3
+reghdfe fret3_w SURPRISE_w, absorb(cusip_id year_quarter)
+est store daya4
+reghdfe fret4_w SURPRISE_w, absorb(cusip_id year_quarter)
+est store daya5
+esttab dayb5 dayb4 dayb3 dayb2 dayb1 daya1 daya2 daya3 daya4 daya5 using test_newe.rtf, replace beta t nocon star(* 0.1 ** 0.05 *** 0.01) ar2 nogap compress title(new surp, firmtimeFE) dep
+
+est clear
+reghdfe lret5_w SURPRISE_w, absorb(cusip_id year_quarter) cluster(cusip_id)
+est store dayb5
+reghdfe lret4_w SURPRISE_w, absorb(cusip_id year_quarter) cluster(cusip_id)
+est store dayb4
+reghdfe lret3_w SURPRISE_w, absorb(cusip_id year_quarter) cluster(cusip_id)
+est store dayb3
+reghdfe lret2_w SURPRISE_w, absorb(cusip_id year_quarter) cluster(cusip_id)
+est store dayb2
+reghdfe lret1_w SURPRISE_w, absorb(cusip_id year_quarter) cluster(cusip_id)
+est store dayb1
+reghdfe ret_w SURPRISE_w, absorb(cusip_id year_quarter) cluster(cusip_id)
+est store daya1
+reghdfe fret1_w SURPRISE_w, absorb(cusip_id year_quarter) cluster(cusip_id)
+est store daya2
+reghdfe fret2_w SURPRISE_w, absorb(cusip_id year_quarter) cluster(cusip_id)
+est store daya3
+reghdfe fret3_w SURPRISE_w, absorb(cusip_id year_quarter) cluster(cusip_id)
+est store daya4
+reghdfe fret4_w SURPRISE_w, absorb(cusip_id year_quarter) cluster(cusip_id)
+est store daya5
+esttab dayb5 dayb4 dayb3 dayb2 dayb1 daya1 daya2 daya3 daya4 daya5 using test_newf.rtf, replace beta t nocon star(* 0.1 ** 0.05 *** 0.01) ar2 nogap compress title(new surp, firmtimeFE and cluster) dep
